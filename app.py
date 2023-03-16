@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans
+import pickle
 
 # Load the diabetes dataset
 df = pd.read_csv('NCSU_Dataset.csv')
@@ -9,9 +9,9 @@ df = pd.read_csv('NCSU_Dataset.csv')
 # Select the features for clustering
 X = df[['Age', 'Pregnancies', 'Glucose']].values
 
-# Train a KMeans model on the dataset
-kmeans = KMeans(n_clusters=3, random_state=0)
-kmeans.fit(X)
+# Load the KMeans model from a pickle file
+with open('kmeans_model.pkl', 'rb') as f:
+    kmeans = pickle.load(f)
 
 # Define a function to predict cluster membership for new data
 def predict_cluster(age, pregnancies, glucose):
