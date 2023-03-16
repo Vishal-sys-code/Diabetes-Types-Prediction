@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 # Load the KMeans model from file
-with open('kmeans_model.pkl', 'rb') as f:
+with open('kmeans_model.pkl', 'r+b') as f:
     kmeans = pickle.load(f)
 
 # Define a function to predict cluster membership for new data
