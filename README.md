@@ -8,7 +8,7 @@ The data used in this model is from the NC State University diabetes dataset, wh
 
 ## Methodology
 
-* To classify whether diabetes is present or not, the entire NCSU Diabetes Dataset was used. The dataset contains information about 101766 patients, including their demographic information, medical history, medications, and laboratory test results. The dataset was preprocessed to handle missing values and irrelevant features were removed. The classification problem was approached as a binary classification problem, where the goal was to predict whether a patient has diabetes or not based on the available features.
+* To classify whether diabetes is present or not, the entire NCSU Diabetes Dataset was used. The dataset contains information about 769 patients, including their demographic information, medical history, medications, and laboratory test results. The dataset was preprocessed to handle missing values and irrelevant features were removed. The classification problem was approached as a binary classification problem, where the goal was to predict whether a patient has diabetes or not based on the available features.
 
 * After the classification task, K-means clustering algorithm was used to group the patients into three clusters based on their age, pregnancies, and glucose levels. These three features were selected as they were found to have a strong correlation with diabetes. The number of clusters was set to three, which was determined by using the elbow method and silhouette score.
 
