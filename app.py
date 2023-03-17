@@ -30,16 +30,18 @@ def get_cluster_conditions(cluster_num, age, pregnancies, glucose):
             return "Type 3 Diabetes"
         elif age >= 30 and pregnancies == 1 and (glucose <= 90 or glucose >= 130):
             return "Type 3 Diabetes"
+        elif age >= 30 and pregnancies >=2 and (glucose >= 190 or glucose <= 230):
+            return "Type 3 Diabetes"
         else:
             return "Type 2 Diabetes"
 
 # Create the Streamlit web app
-st.title('Diabetes Cluster Prediction')
+st.title('Diabetes Type Prediction')
 
 # Add user input fields for age, pregnancies, and glucose
 age = st.slider('Age', min_value=0, max_value=100, step=1)
 pregnancies = st.slider('Number of Pregnancies', min_value=0, max_value=20, step=1)
-glucose = st.slider('Glucose Level', min_value=0, max_value=200, step=1)
+glucose = st.slider('Glucose Level', min_value=0, max_value=300, step=1)
 
 # Make a prediction and display the predicted cluster condition
 cluster_number = predict_cluster(age, pregnancies, glucose)
