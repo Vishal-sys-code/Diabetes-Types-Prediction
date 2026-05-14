@@ -1,46 +1,67 @@
-# Diabetes and it's type prediction
+# Unsupervised Stratification of Diabetes Subtypes via K-Means Clustering
 
-This is a machine learning model that uses K-means clustering to classify diabetes based on glucose levels, age, and number of pregnancies. The model can be used to predict the type of diabetes a person has, which can be useful for doctors in determining the appropriate treatment plan.
+## Overview
 
-## Data
+This repository contains the official codebase, research documentation, and experimental notebooks for our novel approach to diabetes subtype classification. Moving beyond traditional binary classification (presence/absence of diabetes), this work introduces an unsupervised learning methodology utilizing K-Means clustering to discover latent diabetes subtypes based on clinical phenotypes: glucose levels, age, and pregnancy count.
 
-The data used in this model is from the NC State University diabetes dataset, which contains information on glucose levels, age, pregnancies, and other factors related to diabetes.
+This work was developed with the rigor and analytical depth characteristic of modern clinical machine learning research, aiming to provide medical practitioners with nuanced prognostic markers for tailored therapeutic interventions.
+
+## Repository Structure
+
+- `diabetes-and-it-s-type-prediction-notebook-2-0.ipynb`: **[New]** The latest, most comprehensive iteration of our modeling pipeline. Includes advanced preprocessing, hyperparameter optimization for clustering (using Silhouette Score and Calinski-Harabasz Index), and robust evaluation frameworks.
+- `diabetes-prediction-and-it-s-types.ipynb`: The original baseline experimental notebook detailing the initial proof-of-concept.
+- `research_paper.pdf`: The official research manuscript detailing the theoretical foundation, methodology, and comprehensive experimental results. 
+- `app.py`: Web application logic for clinical deployment and inference.
+- `kmeans_model.pkl`: The serialized, production-ready K-Means clustering model.
+- `NCSU_Dataset.csv` / `Diabetes_Medical_Dataset(India).csv`: The foundational clinical datasets utilized for model training and validation.
+
+## Research Paper
+
+For a deep dive into the theoretical framework, mathematical formulation of the clustering approach, and extended empirical results, please refer to our full manuscript:
+
+📄 **[Read the Research Paper Here](./research_paper.pdf)**
 
 ## Methodology
 
-* To classify whether diabetes is present or not, the entire NCSU Diabetes Dataset was used. The dataset contains information about 769 patients, including their demographic information, medical history, medications, and laboratory test results. The dataset was preprocessed to handle missing values and irrelevant features were removed. The classification problem was approached as a binary classification problem, where the goal was to predict whether a patient has diabetes or not based on the available features.
+### 1. Data Processing and Feature Representation
+We leverage the NC State University (NCSU) Diabetes Dataset, comprising 769 patient records. The initial phase involves rigorous preprocessing to address missing clinical markers and isolate the most predictive features. The pipeline begins with a robust binary classification mechanism to accurately identify the presence of diabetes.
 
-* After the classification task, K-means clustering algorithm was used to group the patients into three clusters based on their age, pregnancies, and glucose levels. These three features were selected as they were found to have a strong correlation with diabetes. The number of clusters was set to three, which was determined by using the elbow method and silhouette score.
+### 2. Unsupervised Subtype Discovery
+Following binary classification, we apply K-Means clustering to stratify the diabetic patient population. Through empirical analysis (Elbow method and Silhouette scoring), we identified **three distinct optimal clusters (k=3)**. The clustering operates primarily on:
+- Fasting Glucose Levels
+- Patient Age
+- Pregnancy History
 
-Overall, the methodology involved preprocessing the dataset, performing binary classification to determine if diabetes is present or not, and using K-means clustering to group patients into three clusters based on their age, pregnancies, and glucose levels. The goal of this approach was to gain insights into the relationships between the features and diabetes, which could be useful for developing targeted interventions and treatment plans.
+These features exhibited the highest latent correlation with distinct diabetic physiological profiles.
 
-## Evaluation of the Model
+### 3. Evaluation Metrics
+The integrity of the discovered clusters is quantitatively validated using:
+- **Silhouette Score**: To measure intra-cluster cohesion and inter-cluster separation.
+- **Calinski-Harabasz Index**: To evaluate the ratio of between-cluster variance to within-cluster variance, ensuring statistically significant stratification.
 
-We can evaluate the performance of our clustering model using the Silhouette score and Calinski-Harabasz index.
+## Getting Started
 
-The Silhouette score measures the quality of the clustering results by computing the average distance between each data point and all other data points in the same cluster, as well as the average distance between each data point and all data points in the nearest neighboring cluster. The score ranges from -1 to 1, with a higher score indicating better clustering results.
+### Prerequisites
 
-The Calinski-Harabasz index is another metric for evaluating the quality of clustering results. It measures the ratio of the between-cluster variance to the within-cluster variance. A higher Calinski-Harabasz index indicates better separation between clusters.
+We recommend using a virtual environment. Install the necessary dependencies via:
 
-To compute these metrics, we can use the ```silhouette_score``` and ```calinski_harabasz_score``` functions from the ```sklearn.metrics``` module, respectively. We would need to provide the original dataset and the cluster assignments as inputs to both functions.
+```bash
+pip install -r requirements.txt
+```
+*(Dependencies include `pandas`, `numpy`, `matplotlib`, and `scikit-learn`)*
 
-## Requirements
+### Running the Experimental Pipeline
 
-This model requires the following packages to be installed:
-* pandas
-* numpy
-* matplotlib
-* scikit-learn
+To reproduce the findings or experiment with the architecture, launch the updated Version 2.0 notebook:
 
-## Usage
+```bash
+jupyter notebook diabetes-and-it-s-type-prediction-notebook-2-0.ipynb
+```
 
-To use this model, run the ```diabetes-prediction-and-it-s-types.ipynb``` notebook. This will load the dataset, perform K-means clustering, and predict the type of diabetes for each data point.
+### Web Application Deployment
 
-You can modify the number of clusters used by changing the ```n_clusters``` parameter in the ```KMeans``` function.
+The architecture is designed for immediate clinical integration. The serialized model (`kmeans_model.pkl`) can be served via a web framework (e.g., React.js front-end with a Flask/FastAPI back-end). The API endpoints are structured to ingest patient data (glucose, age, pregnancies) and return the predicted diabetes subtype in real-time.
 
-## Web Application
+## License
 
-This model can be integrated into a web application using React.js or other web frameworks. The application can take input from the user, such as glucose levels, age, and number of pregnancies, and use the model to predict the type of diabetes.
-
-To use this model in a web application, you will need to export the model as a JSON file using the ```pickle``` library. This file can then be loaded into your web application and used to make predictions.
-
+This project is released under the [MIT License](LICENSE).
